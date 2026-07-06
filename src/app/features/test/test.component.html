@@ -1,0 +1,40 @@
+<div style="padding: 20px; font-family: sans-serif; background: #2c2c2c; color: #fff; border-radius: 8px; display: flex; flex-direction: column; gap: 20px;">
+
+  <!-- Секция выбора версий игры -->
+  <div style="padding-bottom: 15px;">
+    <h3 style="margin-top: 0; display: flex; align-items: center; gap: 8px;">
+      Выбор версии игры 🎮
+    </h3>
+
+    <!-- Показываем лоадер, если идет запрос к Rust -->
+    @if (versionStore.isLoading()) {
+      <p style="color: #888;">Сканирование версий в Rust...</p>
+    } @else if (versionStore.error()) {
+      <!-- Выводим ошибку, если Rust-бэкенд вернул сбой -->
+      <p style="color: #ff4d4d; background: #3d2222; padding: 10px; border-radius: 4px;">
+        Ошибка: {{ versionStore.error() }}
+      </p>
+    } @else {
+      <!-- Выпадающий список (Select) на основе сигналов Стора -->
+      <div style="margin-bottom: 15px;">
+        <label for="version-select" style="display: block; margin-bottom: 5px; color: #aaa;">Доступные сборки:</label>
+        <select id="version-select" style="width: 100%; padding: 8px; background: #1e1e1e; color: #fff; border: 1px solid #444; border-radius: 4px; cursor: pointer;">
+          @for (version of versionStore.versions(); track version) {
+            <option [value]="version">Minecraft {{ version }}</option>
+          } @empty {
+            <option disabled>Версии не найдены в папке игры</option>
+          }
+        </select>
+      </div>
+    }
+
+    <!-- Кнопка принудительного обновления списка -->
+    <button
+      [disabled]="versionStore.isLoading()"
+      (click)="refreshVersions()"
+      style="padding: 8px 12px; cursor: pointer; background: #444; color: white; border: none; border-radius: 4px; font-size: 13px; display: flex; align-items: center; gap: 6px;">
+      Обновить список версий
+    </button>
+  </div>
+
+</div>

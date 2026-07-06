@@ -1,0 +1,7 @@
+[build]
+# Используем мощь Ryzen 9 на полную
+rustflags = ["-Z", "threads=16"]
+
+[target.x86_64-pc-windows-gnu]
+# Теперь LLD будет работать, так как ты установил его в систему
+rustflags = ["-C", "link-arg=-fuse-ld=lld", "-Z", "threads=16"]

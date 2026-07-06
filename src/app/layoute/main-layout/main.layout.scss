@@ -1,0 +1,274 @@
+html, body, app-root, .app-container {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #1C1E20;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+}
+
+.down-part {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  overflow: hidden;
+}
+
+.left-panel {
+  background-color: #1C1E20;
+  height: 100%;
+}
+
+.router-content {
+  background-color: #17191B;
+  border: 1px solid #2B2F31;
+  border-radius: 20px;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-x: auto;
+  overscroll-behavior-y: auto;
+}
+
+.top-panel {
+  height: 40px;
+  background-color: #1C1E20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.top-panel-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 0 10px;
+}
+
+.search-container {
+  position: relative;
+  max-width: 130px;
+  width: 130px;
+  transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-app-region: no-drag;
+  flex-shrink: 0;
+}
+
+@media (min-width: 851px) and (max-width: 900px) {
+  .search-container:focus-within {
+    max-width: 240px;
+    width: 240px;
+  }
+}
+
+@media (min-width: 901px) {
+  .search-container:focus-within {
+    max-width: 320px;
+    width: 320px;
+  }
+}
+
+.search-icon {
+  left: 0;
+  inset-block: 0;
+  display: flex;
+  align-self: center;
+  padding-left: 12px;
+  width: 14px;
+  height: 14px;
+  color: oklch(70.5% 0.015 286.067);
+  position: absolute;
+}
+
+.search-content {
+  display: flex;
+  background-color: #17191B;
+  border: 1px solid #2B2F31;
+  padding-right: 12px;
+  padding-left: 32px;
+  outline: none;
+  color: #e3e3e3;
+  width: 100%;
+  height: 28px;
+  border-radius: calc(infinity*1px);
+  font-size: 12px;
+  line-height: calc(1 / 0.75);
+}
+
+.top-panel-left {
+  display: flex;
+  align-items: center;
+  color: #e3e3e3;
+  font-size: 14px;
+  padding-left: 10px;
+  font-family: sans-serif;
+  gap: 16px;
+  -webkit-app-region: no-drag;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.brand {
+  gap: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.brand svg {
+  color: #3a85e1;
+  width: 16px;
+  height: 16px;
+  transition: opacity 0.15s ease;
+}
+
+.nav-buttons {
+  display: flex;
+  height: 24px;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+  gap: 6px;
+}
+
+.nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  cursor: default;
+  border: none;
+  background-color: color-mix(in oklab, #2B2F31 40%, transparent);
+  border-radius: calc(infinity*1px);
+  transition: background-color 0.15s ease;
+  padding: 0;
+}
+
+.nav-button svg {
+  color: oklch(70.5% 0.015 286.067);
+  width: 14px;
+  height: 14px;
+  transition: color 0.15s ease;
+}
+
+.nav-button:hover {
+  background-color: color-mix(in oklab, #2B2F31 80%, transparent);
+}
+
+.nav-button:hover svg {
+  color: #e3e3e3;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 8px;
+}
+
+.breadcrumb svg {
+  color: #4b5563;
+  width: 10px;
+  height: 10px;
+}
+
+.breadcrumb a {
+  color: oklch(70.5% 0.015 286.067);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus {
+  color: #e3e3e3;
+}
+
+.breadcrumb span {
+  color: #e3e3e3;
+}
+
+.top-panel-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 2px;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.system-buttons {
+  display: flex;
+  height: 100%;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+.custom-buttons {
+  display: flex;
+  height: 34px;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+.win-btn-real {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  transition: background-color 0.15s ease;
+  padding: 0;
+}
+
+.win-btn {
+  border-radius: 5px;
+  border: none;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  transition: background-color 0.15s ease;
+  padding: 0;
+}
+
+.win-btn-real:hover .win-btn {
+  background-color: #2B2F31;
+}
+
+.win-btn-real:hover .close-btn {
+  background-color: #a31723 !important;
+}
+
+.win-btn svg {
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.win-btn:hover svg {
+  opacity: 1;
+}
+
+.icon-minimize {
+  width: 12px;
+  height: 1px;
+}
+
+.icon-maximize {
+  width: 12px;
+  height: 12px;
+}
+
+.icon-close {
+  width: 12px;
+  height: 12px;
+}
