@@ -54,12 +54,16 @@
       <div class="custom-buttons">
 
         <!-- Профиль -->
-        <button id="titlebar-minimize" class="win-btn-real" (click)="onProfile()">
+        <button
+          #profileBtn
+          id="titlebar-profile"
+          class="win-btn-real"
+          (click)="openMyMenu(profileBtn)">
           <div class="win-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                  stroke="#e3e3e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="8" r="5"/>
-              <path d="M20 21a8 8 0 0 0-16 0"/>
+              <circle cx="12" cy="8" r="5" />
+              <path d="M20 21a8 8 0 0 0-16 0" />
             </svg>
           </div>
         </button>
@@ -78,8 +82,8 @@
               stroke-linejoin="round"
             >
               <path
-                d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z"/>
-              <circle cx="12" cy="12" r="3"/>
+                d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z" />
+              <circle cx="12" cy="12" r="3" />
             </svg>
 
           </div>
@@ -92,7 +96,7 @@
         <button id="titlebar-minimize" class="win-btn-real" (click)="onMinimize()">
           <div class="win-btn">
             <svg class="icon-minimize" viewBox="0 0 12 1" fill="none">
-              <line x1="0" y1="0.5" x2="12" y2="0.5" stroke="white" stroke-width="1"/>
+              <line x1="0" y1="0.5" x2="12" y2="0.5" stroke="white" stroke-width="1" />
             </svg>
           </div>
         </button>
@@ -102,14 +106,14 @@
             @if (isMaximized()) {
               <svg class="icon-maximize" width="12" height="12" viewBox="0 0 12 12" fill="none">
 
-                <rect x="3.5" y="1.5" width="7" height="7" rx="1" stroke="white" stroke-width="1" fill="none"/>
+                <rect x="3.5" y="1.5" width="7" height="7" rx="1" stroke="white" stroke-width="1" fill="none" />
 
-                <rect x="1.5" y="3.5" width="7" height="7" rx="1" stroke="white" stroke-width="1" fill="black"/>
+                <rect x="1.5" y="3.5" width="7" height="7" rx="1" stroke="white" stroke-width="1" fill="black" />
               </svg>
 
             } @else {
               <svg class="icon-maximize" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <rect x="1.5" y="1.5" width="9" height="9" rx="1" stroke="white" stroke-width="1" fill="none"/>
+                <rect x="1.5" y="1.5" width="9" height="9" rx="1" stroke="white" stroke-width="1" fill="none" />
               </svg>
             }
           </div>
@@ -118,7 +122,7 @@
         <button id="titlebar-close" class="win-btn-real" (click)="onClose()">
           <div class="win-btn close-btn">
             <svg class="icon-close" width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 2L10 10M10 2L2 10" stroke="white" stroke-width="1" stroke-linecap="round"/>
+              <path d="M2 2L10 10M10 2L2 10" stroke="white" stroke-width="1" stroke-linecap="round" />
             </svg>
           </div>
         </button>
@@ -128,9 +132,140 @@
   </div>
 
   <div class="down-part">
-    <div class="left-panel"></div>
+    <div class="left-panel">
+      <div class="left-panel-top">
+        <div class="left-panel-main-buttons">
+          <!-- Основная страница -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn active-page">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path
+                  d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- Скин -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- Список сборок -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#e3e3e3"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="7" height="7" x="3" y="3" rx="1" />
+                <rect width="7" height="7" x="14" y="3" rx="1" />
+                <rect width="7" height="7" x="14" y="14" rx="1" />
+                <rect width="7" height="7" x="3" y="14" rx="1" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- Серверы -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#e3e3e3"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+                <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+                <line x1="6" x2="6.01" y1="6" y2="6" />
+                <line x1="6" x2="6.01" y1="18" y2="18" />
+              </svg>
+
+            </div>
+          </button>
+        </div>
+        <div class="left-panel-top-border"></div>
+        <div class="left-panel-other-buttons">
+          <!-- Умный помощник -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn">
+              <svg width="20"
+                   height="20"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="#e3e3e3"
+                   stroke-width="1.5"
+                   stroke-linecap="round"
+                   stroke-linejoin="round">
+                <path
+                  d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <path d="M12 17h.01" />
+              </svg>
+
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="left-panel-bottom">
+        <div class="left-panel-buttons">
+          <!-- Три точки -->
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+            <div class="win-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#e3e3e3"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="19" cy="12" r="1" />
+                <circle cx="5" cy="12" r="1" />
+              </svg>
+
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </div>
     <div class="router-content">
-            <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

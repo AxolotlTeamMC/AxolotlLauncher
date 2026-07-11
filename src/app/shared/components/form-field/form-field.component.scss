@@ -1,0 +1,185 @@
+:host {
+  display: block;
+  width: 100%;
+  user-select: none;
+}
+
+/*
+// All styles
+*/
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &:has(input:focus) .field-icon {
+    color: var(--accent);
+  }
+}
+
+.field-icon {
+  position: absolute;
+  left: calc(var(--spacing) * 3);
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+  color: var(--border-color);
+  z-index: 5;
+  transition: color 0.2s ease;
+}
+
+::ng-deep input.form-input {
+  width: 100%;
+  padding-block: calc(var(--spacing) * 4);
+  padding-right: calc(var(--spacing) * 4);
+
+  padding-left: calc(var(--spacing) * 4);
+
+  font: inherit;
+  font-weight: 600;
+  background-color: color-mix(in oklab, white 5%, transparent);
+  border: 4px solid var(--border-color);
+  border-radius: 0.75rem;
+  color: var(--border-color);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background-color 0.2s ease, padding-left 0.2s ease;
+
+  &:focus {
+    border-color: var(--accent);
+    background-color: var(--panel-bg);
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--panel-bg) inset !important;
+    -webkit-text-fill-color: var(--border-color) !important;
+    border-color: var(--border-color);
+  }
+}
+
+.field-wrapper:has(.field-icon) {
+  ::ng-deep input.form-input {
+    padding-left: calc(var(--spacing) * 10);
+  }
+}
+
+.eye-button {
+  position: absolute;
+  right: calc(var(--spacing) * 3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 12;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  .field-wrapper:has(input:focus) &,
+  .field-wrapper.is-filled &,
+  .field-wrapper:has(input:-webkit-autofill) & {
+    opacity: 1;
+  }
+
+  .field-wrapper:has(input:focus) & {
+    color: var(--accent);
+  }
+
+  &:hover {
+    color: var(--accent);
+  }
+
+  ng-icon {
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 6);
+  }
+}
+
+::ng-deep .form-input[type="password"],
+::ng-deep .form-input[type="text"] {
+  padding-right: calc(var(--spacing) * 12) !important;
+}
+
+/*
+// Types
+*/
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--border-color);
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.25, 1.2, 0.8, 1),
+  scale 0.25s cubic-bezier(0.25, 1.2, 0.8, 1),
+  color 0.2s ease,
+  background-color 0.2s ease,
+  margin 0.2s ease;
+}
+
+// ---- 1. FLOAT TYPE (Плавающий) ----
+.field-container[data-label-type="float"] {
+  .field-label {
+    position: absolute;
+    z-index: 10;
+    left: calc(var(--spacing) * 4);
+  }
+
+  .field-wrapper:has(.field-icon) .field-label {
+    left: calc(var(--spacing) * 10);
+  }
+
+  .field-wrapper:has(input:focus) .field-label,
+  .field-wrapper.is-filled .field-label,
+  .field-wrapper:has(input:-webkit-autofill) .field-label {
+    transform: translate(0, calc(var(--spacing) * -7));
+    scale: 0.9;
+    border-radius: 0.25rem;
+    padding: 0 8px;
+    background-color: var(--panel-bg);
+  }
+
+  .field-wrapper:has(.field-icon):has(input:focus) .field-label,
+  .field-wrapper:has(.field-icon).is-filled .field-label,
+  .field-wrapper:has(.field-icon):has(input:-webkit-autofill) .field-label {
+    transform: translate(calc(var(--spacing) * -6), calc(var(--spacing) * -7));
+  }
+
+  .field-wrapper:has(input:focus) .field-label {
+    color: var(--accent);
+  }
+}
+
+// ---- 2. STATIC TYPE ----
+.field-container[data-label-type="static"] {
+  gap: calc(var(--spacing) * 1.5);
+
+  .field-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .field-label {
+    font-size: 0.8rem;
+    padding-left: calc(var(--spacing) * 4);
+  }
+
+  .field-wrapper:has(.field-icon) ~ .field-label,
+  & {
+    .field-label {
+      padding-left: calc(var(--spacing) * 2);
+    }
+  }
+}

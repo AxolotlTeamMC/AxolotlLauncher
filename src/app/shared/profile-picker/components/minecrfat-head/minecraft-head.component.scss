@@ -1,0 +1,87 @@
+/* Контейнер для куба */
+.cube-container {
+  /* ГЛАВНАЯ ПЕРЕМЕННАЯ: Просто меняйте этот размер на любой (64px, 32px, 24px и т.д.) */
+  --cube-size: 24px;
+
+  /* Браузер сам автоматически считает размер 1 пикселя (дерели на 8 частей головы) */
+  --pixel-size: calc(var(--cube-size) / 8);
+  --half-cube: calc(var(--cube-size) / 2);
+
+  width: var(--cube-size);
+  height: var(--cube-size);
+  transform-style: preserve-3d;
+  transform: rotateX(-20deg) rotateY(35deg);
+}
+
+/* Базовые свойства для граней */
+.face {
+  position: absolute;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  box-sizing: border-box;
+
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-image: var(--skin-texture, none);
+
+  /* Размер фона жестко привязан к автоматически вычисленному пикселю */
+  background-size: calc(64 * var(--pixel-size)) calc(64 * var(--pixel-size));
+
+  /* Сохраняем пиксельную четкость */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/*
+   3D-Позиционирование и сдвиги фона (автоматически масштабируются вместе с --cube-size)
+*/
+
+/* Лицо */
+.front  {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateZ(var(--half-cube));
+  background-position: calc(-8 * var(--pixel-size)) calc(-8 * var(--pixel-size));
+}
+
+/* Затылок */
+.back   {
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: rotateY(180deg) translateZ(var(--half-cube)) scaleX(-1);
+  background-position: calc(-24 * var(--pixel-size)) calc(-8 * var(--pixel-size));
+}
+
+/* Правая щека */
+.right  {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: rotateY(90deg) translateZ(var(--half-cube)) scaleX(-1);
+  background-position: calc(0 * var(--pixel-size)) calc(-8 * var(--pixel-size));
+}
+
+/* Левая щека */
+.left   {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: rotateY(-90deg) translateZ(var(--half-cube)) scaleX(-1);
+  background-position: calc(-16 * var(--pixel-size)) calc(-8 * var(--pixel-size));
+}
+
+/* Макушка */
+.top    {
+  transform: rotateX(90deg) translateZ(var(--half-cube)) scaleY(-1);
+  background-position: calc(-8 * var(--pixel-size)) calc(0 * var(--pixel-size));
+}
+
+/* Подбородок */
+.bottom {
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: rotateX(-90deg) translateZ(var(--half-cube)) scaleY(-1);
+  background-position: calc(-16 * var(--pixel-size)) calc(0 * var(--pixel-size));
+}
+
+@keyframes rotateCube {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}

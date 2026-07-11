@@ -9,7 +9,10 @@ use security::account_manager::AccountManager;
 use std::path::PathBuf;
 use std::sync::Mutex;
 use tauri::{AppHandle, Manager};
+use tokio::sync::RwLock;
 use uuid::{uuid, Uuid};
+use crate::commands::version::get_versions;
+use crate::utils::open_popup::{open_popup_window};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -26,35 +29,15 @@ pub fn run() {
             let app_handle = app.handle().clone();
 
             tauri::async_runtime::block_on(async move {
-                let initial_manager = load_account_manager_data(&app_handle).await;
+                let initial_manager = AccountManager::load_account_manager_data(&app_handle).await;
 
                 // Регистрируем уже заполненный менеджер как глобальное состояние Tauri
-                app_handle.manage(Mutex::new(initial_manager));
+                app_handle.manage(RwLock::new(initial_manager));
             });
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![version::get_versions])
+        .invoke_handler(tauri::generate_handler![get_versions, open_popup_window])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
-
-async fn load_account_manager_data(app_handle: &AppHandle) -> AccountManager {
-    // Написать парсинг данных
-    let base_dir = get_launcher_dir(app_handle);
-    let mut account_manager = get_from_file::<AccountManager>(&base_dir, "accaunt.json")
-        .await
-        .unwrap_or_default();
-
-    let launcher_dir = app_handle
-        .path()
-        .app_config_dir()
-        .unwrap_or_else(|_| PathBuf::from("."));
-
-    let test_account = Account::new(Uuid::new_v4().to_string(), "SEMASEM", AccountType::Offline);
-
-    account_manager.add_account(test_account);
-    account_manager.add_integration("Discord");
-
-    account_manager
 }

@@ -17,16 +17,62 @@ html, body, app-root, .app-container {
 }
 
 .left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 8px;
   background-color: #1C1E20;
-  height: 100%;
+}
+
+.left-panel-top-border {
+  display: flex;
+  margin: auto;
+  width: 20px;
+  border: 1px solid color-mix(in oklab, #2B2F31 50%, transparent);
+  opacity: 0.8;
+  box-sizing: border-box;
+}
+
+.page-btn-real {
+  background: transparent;
+  border: none;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  transition: background-color 0.15s ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page-btn-real:hover .win-btn {
+  background-color: #2B2F31;
+}
+
+.left-panel-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.active-page {
+  svg {
+    stroke: #e3e3e3 !important;
+  }
+
+  background-color: color-mix(in oklab, #2B2F31 40%, transparent) !important;
+  border: 1px solid #2B2F31 !important;
+  box-sizing: border-box;
 }
 
 .router-content {
   background-color: #17191B;
   border: 1px solid #2B2F31;
-  border-radius: 20px;
+  border-radius: 20px 20px 0 20px;
   padding: 10px;
-  height: 100%;
   overflow-y: auto;
   overscroll-behavior-x: auto;
   overscroll-behavior-y: auto;
@@ -95,7 +141,7 @@ html, body, app-root, .app-container {
   color: #e3e3e3;
   width: 100%;
   height: 28px;
-  border-radius: calc(infinity*1px);
+  border-radius: calc(infinity * 1px);
   font-size: 12px;
   line-height: calc(1 / 0.75);
 }
@@ -143,7 +189,7 @@ html, body, app-root, .app-container {
   cursor: default;
   border: none;
   background-color: color-mix(in oklab, #2B2F31 40%, transparent);
-  border-radius: calc(infinity*1px);
+  border-radius: calc(infinity * 1px);
   transition: background-color 0.15s ease;
   padding: 0;
 }
@@ -226,9 +272,14 @@ html, body, app-root, .app-container {
   cursor: default;
   transition: background-color 0.15s ease;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .win-btn {
+  svg {
+    stroke: #9f9fa9;
+  }
+
   border-radius: 5px;
   border: none;
   width: 34px;
@@ -239,6 +290,7 @@ html, body, app-root, .app-container {
   cursor: default;
   transition: background-color 0.15s ease;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .win-btn-real:hover .win-btn {
@@ -255,7 +307,8 @@ html, body, app-root, .app-container {
 }
 
 .win-btn:hover svg {
-  opacity: 1;
+  opacity: 0.9;
+  stroke: #e3e3e3;
 }
 
 .icon-minimize {

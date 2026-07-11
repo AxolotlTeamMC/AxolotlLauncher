@@ -1,0 +1,23 @@
+<div class="select-account">
+  <div #selector class="selector"></div>
+
+  <button
+    #toggleBtn
+    type="button"
+    class="select-account-button"
+    data-type="offline"
+    [class.selected]="currentType() === 'offline'"
+    (click)="selectTab($event)">
+    Offline
+  </button>
+
+  <button
+    #toggleBtn
+    type="button"
+    class="select-account-button"
+    data-type="microsoft"
+    [class.selected]="currentType() === 'microsoft'"
+    (click)="selectTab($event)">
+    Microsoft
+  </button>
+</div>

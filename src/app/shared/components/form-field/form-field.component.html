@@ -1,0 +1,29 @@
+<div class="field-container" [class.has-error]="!!error()" [attr.data-label-type]="inputType()">
+  <div class="field-wrapper" [class.is-filled]="isFilled()">
+
+    @if (icon()) {
+      <ng-icon class="field-icon" [name]="icon()"></ng-icon>
+    }
+
+    <label class="field-label">{{ label() }}</label>
+
+    <ng-content select="input"></ng-content>
+
+    @if (isPassword()) {
+      <button
+        type="button"
+        class="eye-button"
+        (mousedown)="$event.preventDefault()"
+        (click)="togglePassword()"
+      >
+        <ng-icon [name]="hidePassword() ? 'matVisibilityOff' : 'matVisibility'"></ng-icon>
+      </button>
+    }
+
+
+  </div>
+
+  @if (error()) {
+    <span class="field-error">{{ error() }}</span>
+  }
+</div>

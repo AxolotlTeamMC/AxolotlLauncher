@@ -2,9 +2,9 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "axolotl-launcher",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.axolotlteam.launcher",
   "build": {
-    "frontendDist": "../dist/axolotl-launcher/browser",
+    "frontendDist": "../dist/AxolotlLauncher",
     "devUrl": "http://localhost:4200",
     "beforeDevCommand": "npm run start",
     "beforeBuildCommand": "npm run build"
@@ -28,7 +28,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["nsis", "msi"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

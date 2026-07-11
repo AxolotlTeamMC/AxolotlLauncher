@@ -1,0 +1,116 @@
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 256px; // w-64 (Фиксированная ширина попапа)
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 12px; // rounded-[12px]
+  border: 1px solid #2B2F31;
+  background-color: #17191B;
+  padding: 8px; // p-2
+  user-select: none; // select-none
+  color: #ffffff; // text-white
+  font-family: sans-serif; // font-sans
+  -webkit-font-smoothing: antialiased; // antialiased
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+
+  .menu-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-title {
+    font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #9f9fa9;
+  }
+
+  #profile-title {
+    padding: 5px 10px;
+  }
+
+  .menu-button {
+    &:hover {
+      background-color: #2B2F31;
+    }
+
+    svg {
+      stroke: #9f9fa9;
+      opacity: 0.8;
+      transition: opacity 0.15s ease;
+    }
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    transition: background-color 0.15s ease;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .profiles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; // gap-1
+  }
+
+  .divider {
+    border-top: 1px solid #2B2F31;
+  }
+
+  .add-profile-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px; // gap-2.5
+    border-radius: 8px; // rounded-[8px]
+    padding: 8px; // p-2
+    text-align: left;
+    background: transparent;
+    color: #a1a1aa; // text-zinc-400
+    transition: all 0.1s ease;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(43, 47, 49, 0.4); // hover:bg-[#2B2F31]/40
+      color: #ffffff; // hover:text-white
+    }
+
+    .add-icon {
+      display: flex;
+      width: 28px; // h-7
+      height: 28px; // w-7
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px; // rounded-md
+      background-color: rgba(43, 47, 49, 0.3); // bg-[#2B2F31]/30
+      border: 1px dashed #52525b; // border-dashed border-zinc-700
+      color: #a1a1aa; // text-zinc-400
+
+      svg {
+        width: 16px; // h-4
+        height: 16px; // w-4
+      }
+    }
+
+    .btn-text {
+      font-size: 12px; // text-xs
+      font-weight: 500; // font-medium
+    }
+  }
+}

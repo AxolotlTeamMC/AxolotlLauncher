@@ -1,0 +1,70 @@
+<div #profileMenu class="profile-menu">
+  @switch (profileView()) {
+
+    @case ('list') {
+      <!-- Заголовок -->
+      <div id="profile-title" class="menu-label">
+        <span class="menu-title">Profiles</span>
+      </div>
+
+      <!-- Список аккаунтов -->
+      <div class="profiles-list">
+
+        <!-- Активный профиль -->
+        <al-profile-item [status]="true"></al-profile-item>
+
+        <!-- Неактивный профиль -->
+        <al-profile-item></al-profile-item>
+      </div>
+
+      <!-- Разделитель -->
+      <div class="divider"></div>
+
+      <!-- Добавить новый профиль -->
+      <button class="add-profile-btn" (click)="addNewProfile()">
+        <div class="add-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+        <span class="btn-text">Добавить новый профиль</span>
+      </button>
+    }
+    @case ('add-account') {
+      <!-- Заголовок -->
+      <div class="menu-label">
+        <button class="menu-button" (click)="backToProfileList()">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+        <span class="menu-title">New Profile</span>
+      </div>
+
+      <!-- Выбор типа аккаунта -->
+      <al-account-toggle (onActive)="handleTypeChange($event)"></al-account-toggle>
+
+      <!-- Форма создания аккаунта -->
+      <div>
+      @switch (profileType()) {
+        @case ('offline') {
+          <al-offline-auth></al-offline-auth>
+        }
+        @case ('microsoft') {
+          <al-microsoft-auth></al-microsoft-auth>
+        }
+      }
+      </div>
+
+      <!-- Кнопка создания аккаунта -->
+    }
+  }
+</div>

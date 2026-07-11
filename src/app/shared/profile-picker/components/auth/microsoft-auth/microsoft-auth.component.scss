@@ -1,0 +1,17 @@
+.form-filed {
+  display: flex;
+
+}
+
+.btn-submit {
+  padding-block: 8px;
+  flex: 1;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}

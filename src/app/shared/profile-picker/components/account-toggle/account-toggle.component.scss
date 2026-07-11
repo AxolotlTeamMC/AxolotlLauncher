@@ -1,0 +1,46 @@
+.select-account {
+  position: relative;
+  display: flex;
+  padding: 2px;
+  background-color: #17191B;
+  border: 1px solid #2B2F31;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.select-account-button {
+  cursor: pointer;
+  color: #9f9fa9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  font-size: 10px;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji';
+  text-align: center;
+  padding-block: 6px;
+  flex: 1;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  transition: color 0.2s;
+
+  &.selected {
+    color: #e3e3e3;
+  }
+
+  &:hover {
+    color: #e3e3e3;
+  }
+
+}
+
+.selector {
+  transition: transform 0.2s ease-in-out, width 0.2s ease-in-out;
+  position: absolute;
+  background-color: color-mix(in oklab, #e3e3e3 5%, transparent);
+  border-radius: 6px;
+}
+

@@ -1,0 +1,16 @@
+<!--@if (breadcrumbs().length > 0) {-->
+<!--  <nav aria-label="breadcrumb">-->
+<!--    <ol class="breadcrumb-list">-->
+<!--      @for (item of breadcrumbs(); track item.url; let last = $last) {-->
+<!--        <li class="breadcrumb-item">-->
+<!--          @if (!last) {-->
+<!--            <a [routerLink]="item.url">{{ item.label | transloco }}</a>-->
+<!--            <span class="separator">/</span>-->
+<!--          } @else {-->
+<!--            <span aria-current="page">{{ item.label | transloco }}</span>-->
+<!--          }-->
+<!--        </li>-->
+<!--      }-->
+<!--    </ol>-->
+<!--  </nav>-->
+<!--}-->

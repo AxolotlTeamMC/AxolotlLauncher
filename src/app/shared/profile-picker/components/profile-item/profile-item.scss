@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.profile-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;   // p-2
+  text-align: left;
+  transition: background-color 0.1s ease;
+  outline: none;
+
+  // Стили активного профиля
+  &.active {
+    background-color: rgba(43, 47, 49, 0.5); // bg-[#2B2F31]/50
+  }
+
+  // Стили неактивных профилей в списке
+  &.inactive {
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(43, 47, 49, 0.4); // hover:bg-[#2B2F31]/40
+
+      .avatar {
+        border-color: rgba(161, 161, 170, 0.3); // hover-эффект для аватарки
+      }
+      .username {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;                      // gap-2.5
+  }
+
+  // Иконки аватарок (SE, AX)
+  .avatar {
+    display: flex;
+    width: 28px;                    // h-7
+    height: 28px;                   // w-7
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;             // rounded-md (6px)
+    font-weight: 700;
+    font-size: 12px;
+    border: 1px solid transparent;
+    transition: border-color 0.1s ease;
+
+    &.active {
+      background-color: rgba(16, 185, 129, 0.1); // bg-emerald-500/10
+      color: #34d399;                            // text-emerald-400
+      border-color: rgba(16, 185, 129, 0.2);     // border-emerald-500/20
+    }
+
+    &.inactive {
+      background-color: rgba(113, 113, 122, 0.1); // bg-zinc-500/10
+      color: #a1a1aa;                            // text-zinc-400
+      border-color: rgba(113, 113, 122, 0.2);     // border-zinc-500/20
+    }
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+
+    .username {
+      font-size: 12px;              // text-xs
+      font-weight: 600;             // font-semibold
+      transition: color 0.1s ease;
+
+      &.text-white {
+        color: #ffffff;
+      }
+      &.text-inactive {
+        color: #d4d4d8;             // text-zinc-300
+      }
+    }
+
+    .status {
+      font-size: 10px;              // text-[10px]
+
+      &.text-active {
+        color: #34d399;             // text-emerald-400
+        font-weight: 500;
+      }
+      &:not(.text-active) {
+        color: #71717a;             // text-zinc-500
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;                       // gap-1
+  }
+
+  // Кнопки скрепки и выхода
+  .action-btn {
+    display: flex;
+    width: 28px;                    // h-7
+    height: 28px;                   // w-7
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;             // rounded-md
+    background-color: rgba(43, 47, 49, 0.4); // bg-[#2B2F31]/40
+    color: #a1a1aa;                 // text-zinc-400
+    transition: all 0.1s ease;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #2B2F31;    // hover:bg-[#2B2F31]
+      color: #ffffff;               // hover:text-white
+    }
+
+    &.logout-btn {
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.2); // hover:bg-red-500/20
+        color: #f87171;                           // hover:text-red-400
+      }
+    }
+
+    svg {
+      width: 16px;                  // h-4
+      height: 16px;                 // w-4
+    }
+  }
+}

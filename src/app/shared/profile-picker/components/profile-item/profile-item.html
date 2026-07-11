@@ -1,0 +1,11 @@
+<button class="profile-item" [ngClass]="status() ? 'active' : 'inactive'" (click)="selectProfile()">
+  <div class="profile-info">
+    <div class="avatar" [ngClass]="status() ? 'active' : 'inactive'" >
+      <al-minecraft-head></al-minecraft-head>
+    </div>
+    <div class="user-details">
+      <span class="username text-inactive">AxolotlGuest</span>
+      <span class="status">{{ type() }}</span>
+    </div>
+  </div>
+</button>

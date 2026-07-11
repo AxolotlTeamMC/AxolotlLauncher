@@ -3,7 +3,8 @@
   "identifier": "default",
   "description": "enables the default permissions",
   "windows": [
-    "main"
+    "main",
+    "profile_picker_window"
   ],
   "permissions": [
     "core:default",
@@ -14,6 +15,10 @@
     "core:window:allow-close",
     "core:window:allow-maximize",
     "core:window:allow-is-maximized",
-    "core:window:allow-unmaximize"
+    "core:window:allow-unmaximize",
+    "core:window:allow-create",
+    "core:window:allow-show",
+    "core:webview:allow-create-webview-window",
+    "core:window:allow-set-size"
   ]
 }
