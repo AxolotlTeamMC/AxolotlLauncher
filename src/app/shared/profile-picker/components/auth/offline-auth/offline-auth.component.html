@@ -3,7 +3,7 @@
   <!--  <div class="field-container" [class.has-error]="!!error()">-->
   <div class="field-container">
     <!-- Лейбл находится строго НАД полем -->
-    <label class="field-label" for="nickname-input">{{ label() }}</label>
+    <label class="field-label" for="nickname-input">NickName</label>
 
     <div class="field-wrapper">
       <input
@@ -18,7 +18,7 @@
       <button
         type="button"
         class="refresh-button"
-        (click)="onRefresh()"
+        (click)="generateNickname()"
       >
         <svg
           width="20"
@@ -44,6 +44,6 @@
     <!--    }-->
   </div>
 
-  <button type="submit" class="btn-submit" [disabled]="authForm.invalid">Create</button>
+  <button type="submit" class="btn-submit" [disabled]="authForm.invalid">Add</button>
 
 </form>

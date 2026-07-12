@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, input, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { MinecraftHeadComponent } from '../minecrfat-head/minecraft-head.component';
+import { ProfileType } from '../../types/profile-picker.types';
 
 @Component({
   selector: 'al-profile-item',

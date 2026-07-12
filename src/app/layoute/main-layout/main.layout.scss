@@ -275,6 +275,15 @@ html, body, app-root, .app-container {
   box-sizing: border-box;
 }
 
+.active-icon {
+  background-color: #2B2F31;
+
+  svg {
+    opacity: 0.9 !important;
+    stroke: #e3e3e3 !important;
+  }
+}
+
 .win-btn {
   svg {
     stroke: #9f9fa9;

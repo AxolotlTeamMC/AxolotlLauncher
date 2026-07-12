@@ -6,7 +6,7 @@
     type="button"
     class="select-account-button"
     data-type="offline"
-    [class.selected]="currentType() === 'offline'"
+    [class.selected]="profileMenuStore.currentType() === 'offline'"
     (click)="selectTab($event)">
     Offline
   </button>
@@ -16,7 +16,7 @@
     type="button"
     class="select-account-button"
     data-type="microsoft"
-    [class.selected]="currentType() === 'microsoft'"
+    [class.selected]="profileMenuStore.currentType() === 'microsoft'"
     (click)="selectTab($event)">
     Microsoft
   </button>

@@ -3,26 +3,26 @@ use tauri::{AppHandle, Emitter, Manager, WebviewUrl, WebviewWindowBuilder};
 #[tauri::command]
 pub async fn open_popup_window(
   app: AppHandle,
-  title: String,
-  x: f64,
-  y: f64,
+  label: String,
+  posX: f64,
+  posY: f64,
   route_name: String,
   width: f64,
   height: f64,
 ) -> Result<(), String> {
   // Страховка: если окно вдруг уже есть в системе — просто выходим
-  if let Some(_) = app.get_webview_window(&title) {
+  if let Some(_) = app.get_webview_window(&label) {
     return Ok(());
   }
 
   // ТВОЙ РАБОЧИЙ ВАРИАНТ ФОРМИРОВАНИЯ ССЫЛКИ (НЕ ТРОГАЕМ):
   let base_url = "index.html#/";
-  let mut full_url = String::with_capacity(base_url.len() + title.len());
+  let mut full_url = String::with_capacity(base_url.len() + label.len());
   full_url.push_str(base_url);
   full_url.push_str(&route_name);
   let popup_url = WebviewUrl::App(full_url.into());
 
-  let title_clone = title.clone();
+  let title_clone = label.clone();
   let app_clone = app.clone();
   let main_window = app_clone.get_webview_window("main").expect("Главное окно не найдено");
 
@@ -40,7 +40,7 @@ pub async fn open_popup_window(
       .focused(true)
       .devtools(true)
       .inner_size(width, height)
-      .position(x, y)
+      .position(posX, posY)
       .build()
       .expect("Не удалось создать попап-окно");
 

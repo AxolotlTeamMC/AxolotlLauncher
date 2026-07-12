@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
-  ElementRef,
+  ElementRef, inject,
   output,
   signal,
   viewChild,
   viewChildren
 } from '@angular/core';
-
-export type ProfileType = 'offline' | 'microsoft';
+import { ProfileMenuStore } from '../../store/profile-menu.store';
+import { ProfileType } from '../../types/profile-picker.types';
 
 @Component({
   selector: 'al-account-toggle',
@@ -23,12 +23,11 @@ export class AccountToggleComponent {
   readonly activeItem = viewChild.required<ElementRef<HTMLElement>>('selector');
   readonly buttonItems = viewChildren<ElementRef<HTMLElement>>('toggleBtn');
 
-  readonly currentType = signal<ProfileType>('offline');
-  readonly onActive = output<ProfileType>();
+  protected profileMenuStore = inject(ProfileMenuStore);
 
   constructor() {
     effect(() => {
-      const type = this.currentType();
+      const type = this.profileMenuStore.currentType();
       this.syncActivePosition(type);
     });
   }
@@ -38,8 +37,7 @@ export class AccountToggleComponent {
     const type = button.dataset['type'] as ProfileType;
 
     if (type) {
-      this.currentType.set(type);
-      this.onActive.emit(type);
+      this.profileMenuStore.changeProfileType(type);
     }
   }
 

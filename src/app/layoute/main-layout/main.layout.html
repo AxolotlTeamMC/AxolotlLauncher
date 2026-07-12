@@ -58,8 +58,8 @@
           #profileBtn
           id="titlebar-profile"
           class="win-btn-real"
-          (click)="openMyMenu(profileBtn)">
-          <div class="win-btn">
+          (click)="onProfileMenu(profileBtn)">
+          <div class="win-btn" [class.active-icon]="profileMenuStore.isOpen()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                  stroke="#e3e3e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="8" r="5" />
@@ -69,7 +69,7 @@
         </button>
 
         <!-- Настройки -->
-        <button id="titlebar-minimize" class="win-btn-real" (click)="onProfile()">
+        <button id="titlebar-minimize" class="win-btn-real" (click)="onSettings()">
           <div class="win-btn">
             <svg
               width="20"
@@ -136,7 +136,7 @@
       <div class="left-panel-top">
         <div class="left-panel-main-buttons">
           <!-- Основная страница -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onHomePage()">
             <div class="win-btn active-page">
               <svg
                 width="20"
@@ -155,7 +155,7 @@
           </button>
 
           <!-- Скин -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onSkinPage()">
             <div class="win-btn">
               <svg
                 width="20"
@@ -173,7 +173,7 @@
           </button>
 
           <!-- Список сборок -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="OnInstancesPage()">
             <div class="win-btn">
               <svg
                 width="20"
@@ -194,7 +194,7 @@
           </button>
 
           <!-- Серверы -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onServerPage()">
             <div class="win-btn">
               <svg
                 width="20"
@@ -218,7 +218,7 @@
         <div class="left-panel-top-border"></div>
         <div class="left-panel-other-buttons">
           <!-- Умный помощник -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="OnHelper()">
             <div class="win-btn">
               <svg width="20"
                    height="20"
@@ -241,7 +241,7 @@
       <div class="left-panel-bottom">
         <div class="left-panel-buttons">
           <!-- Три точки -->
-          <button id="titlebar-minimize" class="page-btn-real" (click)="onProfile()">
+          <button id="titlebar-minimize" class="page-btn-real" (click)="onOtherMenu()">
             <div class="win-btn">
               <svg
                 width="20"

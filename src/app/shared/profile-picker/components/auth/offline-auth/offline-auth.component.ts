@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  output,
+  signal,
+} from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
 import { generateNickname } from '../../../../services/generate-nickname';
+import { ProfileMenuStore } from '../../../store/profile-menu.store';
 
 @Component({
   selector: 'al-offline-auth',
@@ -9,26 +16,27 @@ import { generateNickname } from '../../../../services/generate-nickname';
   templateUrl: 'offline-auth.component.html',
   styleUrls: ['offline-auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgIcon],
-  providers: [
-  ]
+  imports: [ReactiveFormsModule],
+  providers: [],
 })
-export class OfflineAuthComponent {
+export class OfflineAuthComponent implements OnDestroy {
+  ngOnDestroy(): void {
+    const nickname = this.authForm.controls.nickname.value;
+    this.profileMenuStore.saveDraftOfflineProfile({ nickname });
+  }
+
+
   private readonly fb = inject(NonNullableFormBuilder);
+  protected profileMenuStore = inject(ProfileMenuStore);
 
-  readonly label = signal<string>('Никнейм');
-  readonly onLogin = output<string>();
-
-  // Инициализация формы с валидацией
   readonly authForm = this.fb.group({
-    nickname: ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(16)
-    ]]
+    nickname: [
+      this.profileMenuStore.savedNewNickname(),
+      [Validators.required, Validators.minLength(3), Validators.maxLength(16)],
+    ],
   });
 
-  // Геттер для моментального вывода ошибок валидации
+  // Потом ток при сенде показывать ошибки
   get error(): string | null {
     const control = this.authForm.controls.nickname;
     if (control.touched && control.invalid) {
@@ -39,16 +47,16 @@ export class OfflineAuthComponent {
     return null;
   }
 
-  // Пустая функция для кнопки перезагрузки сбоку от поля
-  protected onRefresh() {
+  protected generateNickname() {
     this.authForm.controls.nickname.patchValue(generateNickname());
   }
 
-  // Отправка формы наверх родителю
   onSubmit() {
     if (this.authForm.valid) {
       const { nickname } = this.authForm.getRawValue();
-      this.onLogin.emit(nickname);
+      this.profileMenuStore.addNewProfile({
+        nickname,
+      });
     } else {
       this.authForm.markAllAsTouched();
     }

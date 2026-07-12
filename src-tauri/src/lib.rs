@@ -41,3 +41,16 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+// TODO Добавить создание файла account.json
+// С содержимым:
+// {
+// "profileName": "Opezdal_228",
+// "active": true,
+// "type": "Offline",
+// "uuid": "688cf738-95df-4b61-9972-005d54a26e8d"
+// }
+
+// TODO Добавить рабочее добавление в этот json
+
+// TODO Добавить рабочее удаление из этого json

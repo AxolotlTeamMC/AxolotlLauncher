@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { getCurrentWebviewWindow, WebviewWindow } from '@tauri-apps/api/webviewWindow';
-import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { ProfilePickerComponent } from '../../shared/profile-picker/profile-picker';
 import { UnlistenFn } from '@tauri-apps/api/event';
-import { ProfileMenuService } from '../../shared/profile-picker/components/service/profile-menu.service';
 import { PhysicalSize } from '@tauri-apps/api/dpi';
+import { ProfileMenuStore } from '../../shared/profile-picker/store/profile-menu.store';
 
 @Component({
   selector: 'app-layout',
@@ -21,8 +19,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private unlistenResize: UnlistenFn | null = null;
   private unlistenMove: UnlistenFn | null = null;
 
-  // 🟢 Внедряем сервис меню профиля
-  protected menuService = inject(ProfileMenuService);
+  protected profileMenuStore = inject(ProfileMenuStore);
 
   async onClose(): Promise<void> {
     await this.tauriWindow.close().catch((e) => console.error(e));
@@ -55,8 +52,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     });
 
     this.unlistenMove = await this.tauriWindow.onMoved(() => {
-      if (this.menuService.isOpen()) {
-        this.menuService.close();
+      if (this.profileMenuStore.isOpen()) {
+        this.profileMenuStore.close();
       }
     });
   }
@@ -66,18 +63,35 @@ export class LayoutComponent implements OnInit, OnDestroy {
     if (this.unlistenMove) this.unlistenMove();
   }
 
-  /**
-   * ТРИГГЕР КНОПКИ: Теперь просто перенаправляет задачу в специализированный сервис
-   */
-  openMyMenu(element: HTMLElement): void {
-    this.menuService.toggle(element);
+  async onProfileMenu(targetElement: HTMLElement): Promise<void> {
+    this.profileMenuStore.toggleMenu(targetElement);
   }
 
-  async onProfile(): Promise<void> {
-    const popup = await WebviewWindow.getByLabel('profile_picker_window')
-    const newSize = new PhysicalSize(1000, 1000);
-    if (popup) {
-      popup.setSize(newSize);
-    }
+  protected onSettings() {
+
+  }
+
+  protected onHomePage() {
+
+  }
+
+  protected onSkinPage() {
+
+  }
+
+  protected OnInstancesPage() {
+
+  }
+
+  protected onServerPage() {
+
+  }
+
+  protected OnHelper() {
+
+  }
+
+  protected onOtherMenu() {
+
   }
 }

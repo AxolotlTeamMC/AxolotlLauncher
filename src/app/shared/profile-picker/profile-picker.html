@@ -1,5 +1,5 @@
 <div #profileMenu class="profile-menu">
-  @switch (profileView()) {
+  @switch (profileMenuStore.currentView()) {
 
     @case ('list') {
       <!-- Заголовок -->
@@ -21,19 +21,19 @@
       <div class="divider"></div>
 
       <!-- Добавить новый профиль -->
-      <button class="add-profile-btn" (click)="addNewProfile()">
+      <button class="add-profile-btn" (click)="profileMenuStore.openNewProfileMenu()">
         <div class="add-icon">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
           </svg>
         </div>
-        <span class="btn-text">Добавить новый профиль</span>
+        <span class="btn-text">Add new Profile</span>
       </button>
     }
     @case ('add-account') {
       <!-- Заголовок -->
       <div class="menu-label">
-        <button class="menu-button" (click)="backToProfileList()">
+        <button class="menu-button" (click)="profileMenuStore.openProfileListMenu()">
           <svg
             width="20"
             height="20"
@@ -50,11 +50,11 @@
       </div>
 
       <!-- Выбор типа аккаунта -->
-      <al-account-toggle (onActive)="handleTypeChange($event)"></al-account-toggle>
+      <al-account-toggle></al-account-toggle>
 
       <!-- Форма создания аккаунта -->
       <div>
-      @switch (profileType()) {
+      @switch (profileMenuStore.currentType()) {
         @case ('offline') {
           <al-offline-auth></al-offline-auth>
         }
