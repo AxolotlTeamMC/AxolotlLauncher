@@ -41,31 +41,31 @@ const mutateWord = (nickname: string): string =>
 
 /**
  * Генерирует уникальный игровой никнейм.
- * Объединяет базовые слова, опционально накладывает префиксы и строго разделяет
- * использование текстовых суффиксов или генерации трех случайных чисел.
+ * Строго гарантирует длину строки от 3 до 16 символов.
  */
 export function generateNickname(): string {
-  const adj = getRandomItem(adjectives);
-  const noun = getRandomItem(nouns);
-
-  // 1. Базовая склейка слов (50/50)
-  const baseWords = Math.random() < 0.5 ? `${adj}${noun}` : `${noun}${adj}`;
-
-  // 2. Выбираем случайные обертки
-  const randomWrap = getRandomItem(customWrappers);
-
-  // Применяем префикс с шансом 50%
-  const prefix = Math.random() < 0.5 ? randomWrap.prefix : '';
-
-  // 3. Строгое ветвление хвоста: или текстовый суффикс, или числа (но не вместе)
+  let baseWords = '';
+  let prefix = '';
   let tail = '';
-  if (Math.random() < 0.5 && randomWrap.suffix) {
-    tail = randomWrap.suffix;
-  } else {
-    // Алгоритм генерации 3 цифр в диапазоне [0..4]
-    tail = Array.from({ length: 3 }, () => Math.floor(Math.random() * 5)).join('');
+  let totalLength = 0;
+
+  while (totalLength < 3 || totalLength > 16) {
+    const adj = getRandomItem(adjectives);
+    const noun = getRandomItem(nouns);
+
+    baseWords = Math.random() < 0.5 ? `${adj}${noun}` : `${noun}${adj}`;
+
+    const randomWrap = getRandomItem(customWrappers);
+    prefix = Math.random() < 0.5 ? randomWrap.prefix : '';
+
+    if (Math.random() < 0.5 && randomWrap.suffix) {
+      tail = randomWrap.suffix;
+    } else {
+      tail = Array.from({ length: 3 }, () => Math.floor(Math.random() * 5)).join('');
+    }
+
+    totalLength = prefix.length + baseWords.length + tail.length;
   }
 
-  // 4. Сборка полной строки и финальная Leet-мутация
   return mutateWord(`${prefix}${baseWords}${tail}`);
 }

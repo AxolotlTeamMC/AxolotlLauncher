@@ -1,10 +1,10 @@
-export type ProfileMenuView = 'list' | 'add-account';
+import { AccountType } from '../../../core/account/account.types';
 
-export type ProfileType = 'offline' | 'microsoft';
+export type ProfileMenuView = 'list' | 'add-account';
 
 export interface ProfileMenuState {
   currentView: ProfileMenuView;
-  currentType: ProfileType;
+  currentType: AccountType;
   savedNewNickname: string;
 }
 

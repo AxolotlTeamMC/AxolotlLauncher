@@ -5,8 +5,8 @@
     #toggleBtn
     type="button"
     class="select-account-button"
-    data-type="offline"
-    [class.selected]="profileMenuStore.currentType() === 'offline'"
+    data-type="Offline"
+    [class.selected]="profileMenuStore.currentType() === 'Offline'"
     (click)="selectTab($event)">
     Offline
   </button>
@@ -15,8 +15,8 @@
     #toggleBtn
     type="button"
     class="select-account-button"
-    data-type="microsoft"
-    [class.selected]="profileMenuStore.currentType() === 'microsoft'"
+    data-type="Microsoft"
+    [class.selected]="profileMenuStore.currentType() === 'Microsoft'"
     (click)="selectTab($event)">
     Microsoft
   </button>

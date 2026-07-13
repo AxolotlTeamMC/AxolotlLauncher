@@ -2,9 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnDestroy,
-  output,
-  signal,
+  OnDestroy
 } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { generateNickname } from '../../../../services/generate-nickname';

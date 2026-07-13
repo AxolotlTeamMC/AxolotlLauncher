@@ -1,7 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, input, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component, inject,
+  input,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { NgClass } from '@angular/common';
 import { MinecraftHeadComponent } from '../minecrfat-head/minecraft-head.component';
-import { ProfileType } from '../../types/profile-picker.types';
+import { AccountType } from '../../../../core/account/account.types';
+import { ProfileMenuStore } from '../../store/profile-menu.store';
+import { AccountStore } from '../../../../core/account/account.store';
 
 @Component({
   selector: 'al-profile-item',
@@ -12,9 +21,14 @@ import { ProfileType } from '../../types/profile-picker.types';
   imports: [NgClass, MinecraftHeadComponent],
 })
 export class ProfileItemComponent {
-  readonly status = input<boolean>(false);
-  readonly name = input<string>('Test');
-  readonly type = input<ProfileType>('offline');
+  readonly id = input<string>('');
+  readonly active = input<boolean>(false);
+  readonly type = input<AccountType>('Offline');
+  readonly nickname = input<string>('');
+  private accountStore = inject(AccountStore);
 
-  selectProfile() {}
+  selectProfile() {
+    console.log(this.id());
+    this.accountStore.setActiveAccountUuid(this.id());
+  }
 }

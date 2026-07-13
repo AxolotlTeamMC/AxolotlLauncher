@@ -4,8 +4,8 @@ use tauri::{AppHandle, Emitter, Manager, WebviewUrl, WebviewWindowBuilder};
 pub async fn open_popup_window(
   app: AppHandle,
   label: String,
-  posX: f64,
-  posY: f64,
+  pos_x: f64,
+  pos_y: f64,
   route_name: String,
   width: f64,
   height: f64,
@@ -40,7 +40,7 @@ pub async fn open_popup_window(
       .focused(true)
       .devtools(true)
       .inner_size(width, height)
-      .position(posX, posY)
+      .position(pos_x, pos_y)
       .build()
       .expect("Не удалось создать попап-окно");
 

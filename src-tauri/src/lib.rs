@@ -2,15 +2,10 @@ pub mod commands;
 pub mod security;
 pub mod utils;
 
-use crate::security::account_manager::{Account, AccountType};
-use crate::utils::directory::{get_from_file, get_launcher_dir};
-use commands::version;
 use security::account_manager::AccountManager;
-use std::path::PathBuf;
-use std::sync::Mutex;
-use tauri::{AppHandle, Manager};
+use tauri::{Manager};
 use tokio::sync::RwLock;
-use uuid::{uuid, Uuid};
+use crate::commands::account::{get_accounts_from_disk, remove_account_from_disk, save_account_to_disk, set_active_account};
 use crate::commands::version::get_versions;
 use crate::utils::open_popup::{open_popup_window};
 
@@ -37,20 +32,14 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![get_versions, open_popup_window])
+        .invoke_handler(tauri::generate_handler![
+          get_versions,
+          open_popup_window,
+          save_account_to_disk,
+          remove_account_from_disk,
+          get_accounts_from_disk,
+          set_active_account
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-
-// TODO Добавить создание файла account.json
-// С содержимым:
-// {
-// "profileName": "Opezdal_228",
-// "active": true,
-// "type": "Offline",
-// "uuid": "688cf738-95df-4b61-9972-005d54a26e8d"
-// }
-
-// TODO Добавить рабочее добавление в этот json
-
-// TODO Добавить рабочее удаление из этого json

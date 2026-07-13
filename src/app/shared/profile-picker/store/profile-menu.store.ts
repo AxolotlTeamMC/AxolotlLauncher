@@ -1,10 +1,20 @@
-import { OfflineProfile, ProfileMenuState, ProfileType } from '../types/profile-picker.types';
-import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
+import { OfflineProfile, ProfileMenuState } from '../types/profile-picker.types';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import { withTauriWindow } from '../../../core/open-window/open-window.store';
+import { AccountType, LowAccount } from '../../../core/account/account.types';
+import { computed, inject } from '@angular/core';
+import { AccountStore } from '../../../core/account/account.store';
 
 const initialState: ProfileMenuState = {
   currentView: 'list',
-  currentType: 'offline',
+  currentType: 'Offline',
   savedNewNickname: '',
 };
 
@@ -17,15 +27,28 @@ export const ProfileMenuStore = signalStore(
     defaultHeight: 300,
   }),
   withState(initialState),
-  withMethods((store) => ({
+  withComputed((store, accountStore = inject(AccountStore)) => ({
+    /** Сигнал: Список всех доступных аккаунтов лаунчера */
+    accounts: computed(() => accountStore.accountList()),
 
+    /** Сигнал: Список всех неактивных аккаунтов лаунчера */
+    inactiveAccounts: computed(() => {
+      return accountStore.inactiveAccounts();
+    }),
+
+    /** Сигнал: Полный объект текущего активного игрока */
+    activeAccount: computed(() => {
+      return accountStore.getActiveAccount();
+    }),
+  })),
+  withMethods((store, accountStore = inject(AccountStore)) => ({
     /**
      * Управляющий триггер: открывает или закрывает окно попапа с авто-разворотом координат.
      * @param triggerElement HTML-элемент вызывающей кнопки для расчета экранных координат геометрии.
      */
     toggleMenu(triggerElement: HTMLElement) {
       if (store.isOpen()) {
-        store.close()
+        store.close();
         return;
       }
 
@@ -47,10 +70,9 @@ export const ProfileMenuStore = signalStore(
 
       if (spaceBelow < popupHeight + offset) {
         y = rect.top + window.screenY - popupHeight - offset;
-        console.log('[Popup Service] Недостаточно места снизу. Разворачиваем попап вверх.');
       }
 
-      store.open(x, y)
+      store.open(x, y);
     },
 
     initClickOutside() {
@@ -65,37 +87,43 @@ export const ProfileMenuStore = signalStore(
     openNewProfileMenu() {
       patchState(store, {
         currentView: 'add-account',
-      })
+      });
     },
 
     openProfileListMenu() {
       patchState(store, {
         currentView: 'list',
-      })
+      });
     },
 
-    changeProfileType(type: ProfileType) {
+    changeProfileType(type: AccountType) {
       patchState(store, {
         currentType: type,
-      })
+      });
     },
 
     addNewProfile(profile: OfflineProfile) {
+      const saveAccount: LowAccount = {
+        nickname: profile.nickname,
+        type: 'Offline',
+      };
+      accountStore.saveAccount(saveAccount);
+
       patchState(store, {
-        savedNewNickname: profile.nickname
-      })
+        currentView: 'list',
+        savedNewNickname: '',
+      });
     },
 
     saveDraftOfflineProfile(profile: OfflineProfile) {
       patchState(store, {
-        savedNewNickname: profile.nickname
-      })
+        savedNewNickname: profile.nickname,
+      });
     },
 
-    removeProfile() {
-
-    }
-
+    removeProfile(uuid: string) {
+      accountStore.removeAccount(uuid);
+    },
   })),
   withHooks((store) => ({
     onInit() {
@@ -103,6 +131,6 @@ export const ProfileMenuStore = signalStore(
         patchState(store, { isOpen: false });
       });
       store.initClickOutside();
-    }
-  }))
+    },
+  })),
 );

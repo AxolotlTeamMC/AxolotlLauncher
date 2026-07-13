@@ -3,13 +3,11 @@ import {
   Component,
   effect,
   ElementRef, inject,
-  output,
-  signal,
   viewChild,
   viewChildren
 } from '@angular/core';
 import { ProfileMenuStore } from '../../store/profile-menu.store';
-import { ProfileType } from '../../types/profile-picker.types';
+import { AccountType } from '../../../../core/account/account.types';
 
 @Component({
   selector: 'al-account-toggle',
@@ -34,7 +32,7 @@ export class AccountToggleComponent {
 
   selectTab(event: Event) {
     const button = event.currentTarget as HTMLButtonElement;
-    const type = button.dataset['type'] as ProfileType;
+    const type = button.dataset['type'] as AccountType;
 
     if (type) {
       this.profileMenuStore.changeProfileType(type);
@@ -43,7 +41,7 @@ export class AccountToggleComponent {
 
 
 
-  private syncActivePosition(type: ProfileType) {
+  private syncActivePosition(type: AccountType) {
     const buttons = this.buttonItems();
     const active = this.activeItem().nativeElement;
 

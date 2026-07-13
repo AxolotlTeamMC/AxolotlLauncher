@@ -1,20 +1,28 @@
+use crate::security::account_manager::AccountManager;
 use serde::de::DeserializeOwned;
 use std::path::PathBuf;
 use tauri::{AppHandle, Manager};
 use tokio::fs;
+use tokio::fs::create_dir_all;
 
 /// Отдаёт путь к основной папке проекта Rouming/AxolotlLauncher/
 /// Требует передать `&AppHandle`
 pub fn get_launcher_dir(app_handle: &AppHandle) -> PathBuf {
-    app_handle
+    let mut path = app_handle
         .path()
-        .app_config_dir()
-        .unwrap_or_else(|_| PathBuf::from("."))
+        .config_dir()
+        .unwrap_or_else(|_| PathBuf::from("."));
+    path.push("AxolotlLauncher");
+
+    path
 }
 
 /// Рекурсивно создает директорию (и все родительские папки, если их нет).
 /// Возвращает `Ok(())` в случае успеха или строку с текстом ошибки.
-pub async fn create_folder(path: String) -> Result<(), String> {
+pub async fn create_folder(path: &PathBuf) -> Result<(), String> {
+    if let Some(parent) = path.parent() {
+        let _ = create_dir_all(parent).await;
+    }
     Ok(())
 }
 
@@ -30,15 +38,16 @@ pub async fn get_from_file<T>(path: &PathBuf, file_name: impl Into<String>) -> R
 where
     T: DeserializeOwned + Default,
 {
+    let file_path = path.join(file_name.into());
 
-  let file_path = path.join(file_name.into());
+    if !file_path.exists() {
+        return Ok(T::default());
+    }
 
-  if !file_path.exists() {
-    return Ok(T::default());
-  }
-
-  let file = fs::read_to_string(file_path).await.map_err(|e| e.to_string())?;
-  let data = serde_json::from_str::<T>(&file).map_err(|e| e.to_string())?;
+    let file = fs::read_to_string(file_path)
+        .await
+        .map_err(|e| e.to_string())?;
+    let data = serde_json::from_str::<T>(&file).map_err(|e| e.to_string())?;
     Ok(data)
 }
 

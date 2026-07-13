@@ -9,12 +9,22 @@
 
       <!-- Список аккаунтов -->
       <div class="profiles-list">
-
-        <!-- Активный профиль -->
-        <al-profile-item [status]="true"></al-profile-item>
-
-        <!-- Неактивный профиль -->
-        <al-profile-item></al-profile-item>
+      @if (profileMenuStore.activeAccount(); as active) {
+        <al-profile-item
+          [id]="active.uuid"
+          [active]="true"
+          [type]="active.type"
+          [nickname]="active.nickname">
+        </al-profile-item>
+      }
+      @for (account of profileMenuStore.inactiveAccounts(); track $index) {
+        <al-profile-item
+          [id]="account.uuid"
+          [active]="false"
+          [type]="account.type"
+          [nickname]="account.nickname">
+        </al-profile-item>
+      }
       </div>
 
       <!-- Разделитель -->
@@ -55,10 +65,10 @@
       <!-- Форма создания аккаунта -->
       <div>
       @switch (profileMenuStore.currentType()) {
-        @case ('offline') {
+        @case ('Offline') {
           <al-offline-auth></al-offline-auth>
         }
-        @case ('microsoft') {
+        @case ('Microsoft') {
           <al-microsoft-auth></al-microsoft-auth>
         }
       }
