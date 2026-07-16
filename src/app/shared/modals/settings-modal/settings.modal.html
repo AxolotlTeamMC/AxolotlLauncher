@@ -1,0 +1,113 @@
+<div class="modal-container" (keydown)="$event.stopPropagation()" [class.is-closing]="isClosing()">
+  <div class="settings-left">
+    <div class="settings-info">
+      <h2>Settings</h2>
+      <div class="settings-list">
+
+        <!-- General -->
+        <button class="settings-button-container" (click)="setSettingsTab('general')">
+          <div class="settings-button" [class.active]="currentSetting() == 'general'">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 8h4" />
+              <path d="M12 21v-9" />
+              <path d="M12 8V3" />
+              <path d="M17 16h4" />
+              <path d="M19 12V3" />
+              <path d="M19 21v-5" />
+              <path d="M3 14h4" />
+              <path d="M5 10V3" />
+              <path d="M5 21v-7" />
+            </svg>
+            <span>General</span>
+          </div>
+        </button>
+
+        <!-- Java -->
+        <button class="settings-button-container" (click)="setSettingsTab('java_installations')">
+          <div class="settings-button" [class.active]="currentSetting() == 'java_installations'">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20v2" />
+              <path d="M12 2v2" />
+              <path d="M17 20v2" />
+              <path d="M17 2v2" />
+              <path d="M2 12h2" />
+              <path d="M2 17h2" />
+              <path d="M2 7h2" />
+              <path d="M20 12h2" />
+              <path d="M20 17h2" />
+              <path d="M20 7h2" />
+              <path d="M7 20v2" />
+              <path d="M7 2v2" />
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <rect x="8" y="8" width="8" height="8" rx="1" />
+            </svg>
+            <span>Java Installations</span>
+          </div>
+        </button>
+
+        <!-- Instance -->
+        <button class="settings-button-container" (click)="setSettingsTab('instance')">
+          <div class="settings-button" [class.active]="currentSetting() == 'instance'">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="7" height="7" x="3" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="14" rx="1" />
+              <rect width="7" height="7" x="3" y="14" rx="1" />
+            </svg>
+            <span>Instance</span>
+          </div>
+        </button>
+
+        <!-- Customize -->
+        <button class="settings-button-container" (click)="setSettingsTab('customize')">
+          <div class="settings-button" [class.active]="currentSetting() == 'customize'">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z" />
+              <path
+                d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15" />
+            </svg>
+            <span>Customize</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-center">
+    <!-- Добавляем эту обертку для изоляции скролла -->
+    <div class="settings-scroll-area" cdkScrollable>
+    @switch (currentSetting()) {
+        @case ('general') {
+          <al-general-setting></al-general-setting>
+        }
+        @case ('java_installations') {
+          <div class="setting-content">
+            <h3>Java Installations</h3>
+            @for (version of javaVersions; track $index) {
+              <div>Java version {{ version }}</div>
+            }
+          </div>
+        }
+        @case ('instance') {
+          <div class="setting-content">
+            <h3>Instance</h3>
+            <!-- Сюда пойдут настройки разрешения, памяти и скриптов -->
+          </div>
+        }
+        @case ('customize') {
+          <div class="setting-content">
+            <h3>Customize</h3>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Кнопки всегда будут зафиксированы внизу модалки -->
+<!--    <div class="modal-buttons">-->
+<!--      <button class="btn-secondary" (click)="close()">Отмена</button>-->
+<!--    </div>-->
+  </div>
+
+</div>

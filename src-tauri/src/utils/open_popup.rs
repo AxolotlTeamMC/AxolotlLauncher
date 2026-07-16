@@ -69,22 +69,22 @@ pub async fn open_popup_window(
         let window_to_close = popup_close_clone.clone();
 
         // Проверяем в главном потоке ОС, куда перешел фокус Windows
-        // app_event_handle.run_on_main_thread(move || {
-        //   if let Some(main_win) = app_handle.get_webview_window("main") {
-        //     if let Ok(true) = main_win.is_focused() {
-        //       // Если фокус ушел на наше главное окно лаунчера — Rust МОЛЧИТ!
-        //       // Это убирает гонку потоков, из-за которой кнопка сходила с ума.
-        //       println!("[Rust] Расфокус проигнорирован: фокус остался внутри лаунчера.");
-        //       return;
-        //     }
-        //   }
-        //
-        //   // Если главное окно НЕ в фокусе — значит пользователь кликнул по рабочему столу
-        //   // или другой программе. Вот теперь честно уничтожаем попап.
-        //   println!("[Rust] Клик мимо всего приложения. Закрываем попап.");
-        //   let _ = app_handle.emit("profile_popup_destroyed", ()); // оповещаем Angular
-        //   let _ = window_to_close.close();
-        // }).unwrap();
+        app_event_handle.run_on_main_thread(move || {
+          if let Some(main_win) = app_handle.get_webview_window("main") {
+            if let Ok(true) = main_win.is_focused() {
+              // Если фокус ушел на наше главное окно лаунчера — Rust МОЛЧИТ!
+              // Это убирает гонку потоков, из-за которой кнопка сходила с ума.
+              println!("[Rust] Расфокус проигнорирован: фокус остался внутри лаунчера.");
+              return;
+            }
+          }
+
+          // Если главное окно НЕ в фокусе — значит пользователь кликнул по рабочему столу
+          // или другой программе. Вот теперь честно уничтожаем попап.
+          println!("[Rust] Клик мимо всего приложения. Закрываем попап.");
+          let _ = app_handle.emit("profile_popup_destroyed", ()); // оповещаем Angular
+          let _ = window_to_close.close();
+        }).unwrap();
       }
     });
   }).map_err(|e| e.to_string())?;

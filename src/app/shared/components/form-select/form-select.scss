@@ -1,0 +1,93 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  position: relative;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--border-color);
+  padding-left: calc(var(--spacing) * 1);
+}
+
+.field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.field-icon {
+  position: absolute;
+  left: calc(var(--spacing) * 3);
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+  color: var(--border-color);
+  pointer-events: none;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  stroke: #e3e3e3;
+}
+
+.select-value {
+  font-size: 14px;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  width: 100%;
+  padding-inline: 8px;
+  font-weight: 600;
+  background-color: #1C1E20;
+  border: 1px solid #2B2F31;
+  border-radius: 6px;
+  color: #e3e3e3;
+  box-sizing: border-box;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.select-dropdown {
+  background-color: #1C1E20;
+  border: 1px solid #2B2F31;
+  border-radius: 6px;
+  margin-top: 2px;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.option {
+  padding-block: 7px;
+  padding-inline: 8px;
+  cursor: pointer;
+  color: #e3e3e3;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.1);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid color-mix(in oklab, var(--border-color) 20%, transparent);
+  }
+}

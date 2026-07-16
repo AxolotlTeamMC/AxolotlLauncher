@@ -10,3 +10,39 @@ html, body {
     height: 0 !important;
   }
 }
+
+.transparent-backdrop {
+  background-color: rgba(0, 0, 0, 0) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+  backdrop-filter: blur(0px) !important;
+  transition: backdrop-filter 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+  background-color 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.transparent-backdrop.cdk-overlay-backdrop-showing:has(~ .settings-modal-wrapper) {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+@keyframes revealWidthOpen {
+  0% { transform: scaleX(0); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes revealWidthClose {
+  0% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+.settings-modal-wrapper.modal-reveal-animation {
+  .modal-container {
+    transform-origin: center center;
+    animation: revealWidthOpen 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    will-change: transform, opacity;
+
+    &.is-closing {
+      animation: revealWidthClose 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+  }
+}

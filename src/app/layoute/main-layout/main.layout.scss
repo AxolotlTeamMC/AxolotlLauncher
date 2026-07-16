@@ -48,6 +48,15 @@ html, body, app-root, .app-container {
   box-sizing: border-box;
 }
 
+.update-button {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+
+  svg {
+    stroke: #34d399 !important;
+  }
+}
+
 .page-btn-real:hover .win-btn {
   background-color: #2B2F31;
 }

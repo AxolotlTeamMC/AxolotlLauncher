@@ -70,6 +70,7 @@ export function withTauriWindow(state: OpenWindowState) {
 
       setSize(size: LogicalSize | PhysicalSize | Size) {
         windowApiService.setWindowSize(state.label, size).subscribe();
+        console.log('[withTauriWindow] SetSize:', size);
       },
 
       _listenRx: rxMethod<ListenArgs>(

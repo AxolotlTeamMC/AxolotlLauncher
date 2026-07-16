@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { getCurrentWebviewWindow, WebviewWindow } from '@tauri-apps/api/webviewWindow';
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 import { UnlistenFn } from '@tauri-apps/api/event';
-import { PhysicalSize } from '@tauri-apps/api/dpi';
 import { ProfileMenuStore } from '../../shared/profile-picker/store/profile-menu.store';
+import { Dialog } from '@angular/cdk/dialog';
+import { SettingsModalComponent } from '../../shared/modals/settings-modal/settings.modal';
 
 @Component({
   selector: 'app-layout',
@@ -18,6 +19,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private tauriWindow = getCurrentWebviewWindow();
   private unlistenResize: UnlistenFn | null = null;
   private unlistenMove: UnlistenFn | null = null;
+  private readonly dialog = inject(Dialog)
 
   protected profileMenuStore = inject(ProfileMenuStore);
 
@@ -68,7 +70,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   protected onSettings() {
-
+      const dialogRef = this.dialog.open<boolean>(SettingsModalComponent, {
+        width: '660px',
+        disableClose: true,
+        backdropClass: 'transparent-backdrop',
+        panelClass: ['modal-reveal-animation', 'settings-modal-wrapper'],
+        // data: {
+        //   title: 'Удаление профиля',
+        //   message: `Вы действительно хотите удалить аккаунт "${name}" с этого устройства?`
+        // }
+      });
   }
 
   protected onHomePage() {

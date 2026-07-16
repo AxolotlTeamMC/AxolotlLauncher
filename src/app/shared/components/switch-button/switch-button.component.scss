@@ -1,0 +1,38 @@
+.switch-button-container {
+  display: flex;
+  position: relative;
+  width: 48px;
+  height: 24px;
+  border: 1px solid #2B2F31;
+  background-color: #17191B;
+  border-radius: 25px;
+  padding: 4px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  align-items: center;
+
+  &:active {
+    .switch-button {
+      transform: translateX(calc(8px));
+      width: 24px;
+    }
+  }
+}
+
+.switch-button {
+  width: 16px;
+  height: 16px;
+  background-color: #9f9fa9;
+  border-radius: calc(infinity * 1px);
+  box-sizing: border-box;
+
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+  width 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+  background-color 0.3s ease,
+  box-shadow 0.3s ease;
+
+  &.active {
+    transform: translateX(calc(48px - 16px - 8px));
+    background-color: #34d399;
+  }
+}

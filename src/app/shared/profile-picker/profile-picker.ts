@@ -1,19 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  AfterViewInit,
-  viewChild,
-  signal,
-  ChangeDetectorRef,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, OnDestroy, viewChild } from '@angular/core';
 import { LogicalSize } from '@tauri-apps/api/dpi';
+import { ProfileMenuStore } from './store/profile-menu.store';
 import { ProfileItemComponent } from './components/profile-item/profile-item';
 import { AccountToggleComponent } from './components/account-toggle/account-toggle.component';
 import { OfflineAuthComponent } from './components/auth/offline-auth/offline-auth.component';
 import { MicrosoftAuthComponent } from './components/auth/microsoft-auth/microsoft-auth.component';
-import { ProfileMenuStore } from './store/profile-menu.store';
 
 @Component({
   selector: 'al-profile-picker',
@@ -28,52 +19,44 @@ import { ProfileMenuStore } from './store/profile-menu.store';
     MicrosoftAuthComponent,
   ],
 })
-export class ProfilePickerComponent implements AfterViewInit {
-  readonly profileMenu = viewChild<ElementRef<HTMLElement>>('profileMenu');
-  private readonly cdr = inject(ChangeDetectorRef);
-  protected profileMenuStore = inject(ProfileMenuStore);
+export class ProfilePickerComponent implements OnInit, OnDestroy {
+  readonly profileMenu = viewChild.required<ElementRef<HTMLElement>>('profileMenu');
 
-  async resize() {
-    this.cdr.detectChanges();
+  protected readonly profileMenuStore = inject(ProfileMenuStore);
 
-    const defaultSize = new LogicalSize(500, 500);
+  private layoutObserver: ResizeObserver | null = null;
 
-    this.profileMenuStore.setSize(defaultSize);
+  ngOnInit(): void {
+    requestAnimationFrame(() => {
+      this.initAutoResizing();
+    });
+  }
 
-    setTimeout(async () => {
-      const container = this.profileMenu();
+  /**
+   * Запускает непрерывное автоматическое отслеживание геометрии контента
+   */
+  private initAutoResizing(): void {
+    const element = this.profileMenu().nativeElement;
 
-      if (container && container.nativeElement) {
-        const element = container.nativeElement;
-        const width = Math.ceil(element.offsetWidth);
-        const height = Math.ceil(element.offsetHeight);
+    this.layoutObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const rect = entry.target.getBoundingClientRect();
 
-        if (width === 0 || height === 0) {
-          return;
-        }
+        const width = Math.ceil(rect.width);
+        const height = Math.ceil(rect.height);
 
-        const newSize = new LogicalSize(width, height);
+        if (height === 0) return;
 
-        this.profileMenuStore.setSize(newSize);
-
-        this.cdr.markForCheck();
+        this.profileMenuStore.setSize(new LogicalSize(width, height));
       }
-    }, 0);
+    });
+
+    this.layoutObserver.observe(element);
   }
 
-  async ngAfterViewInit() {
-    await this.resize();
+  ngOnDestroy(): void {
+    if (this.layoutObserver) {
+      this.layoutObserver.disconnect();
+    }
   }
-
-  // linkAccounts(): void {
-  //   console.log('Запрос на привязку аккаунтов');
-  // }
-
-  // logout(): void {
-  //   console.log('Выход из аккаунта');
-  // }
-
-  // selectProfile(): void {
-  //   console.log('Выбор профиля');
-  // }
 }

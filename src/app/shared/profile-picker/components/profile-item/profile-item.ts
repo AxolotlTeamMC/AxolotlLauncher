@@ -28,7 +28,10 @@ export class ProfileItemComponent {
   private accountStore = inject(AccountStore);
 
   selectProfile() {
-    console.log(this.id());
     this.accountStore.setActiveAccountUuid(this.id());
+  }
+
+  removeProfile() {
+    this.accountStore.removeAccount(this.id());
   }
 }

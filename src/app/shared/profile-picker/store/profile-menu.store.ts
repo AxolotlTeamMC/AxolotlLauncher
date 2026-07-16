@@ -31,6 +31,9 @@ export const ProfileMenuStore = signalStore(
     /** Сигнал: Список всех доступных аккаунтов лаунчера */
     accounts: computed(() => accountStore.accountList()),
 
+    /** Сигнал: Активный id */
+    accountActiveId: computed(() => accountStore.activeAccountUuid()),
+
     /** Сигнал: Список всех неактивных аккаунтов лаунчера */
     inactiveAccounts: computed(() => {
       return accountStore.inactiveAccounts();

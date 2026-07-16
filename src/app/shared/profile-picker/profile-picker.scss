@@ -10,7 +10,7 @@
   background-color: #17191B;
   padding: 8px; // p-2
   user-select: none; // select-none
-  color: #ffffff; // text-white
+  color: #e3e3e3; // text-white
   font-family: sans-serif; // font-sans
   -webkit-font-smoothing: antialiased; // antialiased
   overscroll-behavior-x: none;
@@ -65,6 +65,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px; // gap-1
+    box-sizing: border-box;
   }
 
   .divider {
@@ -88,7 +89,7 @@
 
     &:hover {
       background-color: rgba(43, 47, 49, 0.4); // hover:bg-[#2B2F31]/40
-      color: #ffffff; // hover:text-white
+      color: #e3e3e3; // hover:text-white
     }
 
     .add-icon {
@@ -100,7 +101,7 @@
       border-radius: 6px; // rounded-md
       background-color: rgba(43, 47, 49, 0.3); // bg-[#2B2F31]/30
       border: 1px dashed #52525b; // border-dashed border-zinc-700
-      color: #a1a1aa; // text-zinc-400
+      color: #a1a1aa;
 
       svg {
         width: 16px; // h-4

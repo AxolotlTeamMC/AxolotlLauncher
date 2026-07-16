@@ -1,0 +1,158 @@
+.modal-container {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  border: 1px solid #2B2F31;
+  color: #e3e3e3;
+  border-radius: 8px;
+
+  height: 460px;
+  max-height: 460px;
+  box-sizing: border-box;
+  user-select: none !important;
+  overflow: hidden;
+}
+
+.settings-left {
+  padding: 12px;
+  background-color: #1C1E20;
+  border-right: 1px solid #2B2F31;
+}
+
+.settings-info {
+
+
+  h2 {
+    font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #9f9fa9;
+    margin-bottom: 8px;
+    padding-block: 4px;
+    padding-inline: 10px;
+  }
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Физическая БОЛЬШАЯ обертка (кнопка без мертвых зон) */
+.settings-button-container {
+  display: block;
+  width: 100%;
+  padding-block: 2px; /* Расстояние между кликабельными зонами */
+  padding-inline: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+
+  /* Управление визуальным стилем внутренней кнопки при ховере на контейнер */
+  &:hover {
+    .settings-button:not(.active) {
+      background-color: color-mix(in oklab, #2B2F31 60%, transparent);
+      border-color: #2B2F31;
+
+      svg {
+        stroke: #e3e3e3;
+      }
+      span {
+        color: #e3e3e3;
+      }
+    }
+  }
+}
+
+/* Сама уменьшенная визуальная подложка кнопки */
+.settings-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding-block: 8px;
+  padding-inline: 10px;
+  background-color: transparent;
+  border: 1px solid transparent; /* Защита от прыжков пикселей */
+  border-radius: 8px;
+  text-align: left;
+  line-height: calc(1 / 0.75);
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: #9f9fa9;
+    transition: stroke 0.15s ease;
+  }
+
+  span {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9f9fa9;
+    transition: color 0.15s ease;
+  }
+
+  // Активное состояние визуальной кнопки
+  &.active {
+    background-color: color-mix(in oklab, #2B2F31 60%, transparent);
+    border-color: #2B2F31;
+
+    svg {
+      stroke: #34d399;
+    }
+    span {
+      color: #e3e3e3;
+    }
+  }
+}
+
+.settings-center {
+  padding: 20px 10px 20px 20px;
+  background-color: #17191B;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;           /* Занимает строго высоту модалки */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// Новая изолированная зона скролла
+.settings-scroll-area {
+  flex-grow: 1;       /* Забирает всё пространство до кнопок */
+  min-height: 0;      /* Запрещает контенту распирать флекс-блок вверх */
+  overflow-y: auto;   /* Включает вертикальную прокрутку */
+  overflow-x: hidden; /* Гарантирует отсутствие горизонтального дерганья */
+  padding-right: 8px; /* Небольшой отступ справа, чтобы скроллбар не нализал на инпуты */
+
+  /* Красивый тонкий скроллбар под темную тему лаунчера */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2B2F31;
+    border-radius: 3px;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: #34d399; /* Меняет цвет на зеленый при наведении */
+    }
+  }
+
+  /* Поддержка Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2B2F31 transparent;
+}

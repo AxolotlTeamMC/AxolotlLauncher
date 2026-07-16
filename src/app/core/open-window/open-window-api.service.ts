@@ -71,10 +71,15 @@ export class OpenWindowApiService {
    * @returns {Observable<void>} Поток, завершающий выполнение после успешного изменения размера.
    * @throws {Error} Выбрасывает ошибку, если Tauri API вернул сбой при изменении размера.
    */
+  /**
+   * Находит окно Tauri по его `label` и асинхронно изменяет его размер.
+   * Если окно с указанным идентификатором не найдено, поток безопасно завершится.
+   */
   setWindowSize(label: string, size: LogicalSize | PhysicalSize | Size): Observable<void> {
     return from(WebviewWindow.getByLabel(label)).pipe(
       switchMap((windowInstance) => {
         if (windowInstance) {
+          console.log('setWindowSize: ', size);
           return from(windowInstance.setSize(size));
         }
         return of(void 0);

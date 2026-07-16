@@ -1,0 +1,113 @@
+<div class="setting-container">
+  <!-- Настройки размера -->
+  <h3 class="setting-group-title">Window settings</h3>
+  <div class="setting-group">
+    <!-- Полный экран -->
+    <div class="setting-component">
+      <div class="setting-info">
+        <h4 class="setting-title">Fullscreen</h4>
+        <!-- Описание настройки -->
+        <p class="setting-description">Open the launcher window in fullscreen mode instead</p>
+      </div>
+      <ui-switch-button></ui-switch-button>
+    </div>
+
+    <!-- Если не выбрал полный экран то эта настройка доступна -->
+    <div class="vertical-component">
+      <div class="setting-info">
+        <h4 class="setting-title">Window Resolution</h4>
+        <p class="setting-description">Set a custom width and height for the launcher window</p>
+      </div>
+
+      <div class="custom-size">
+        <!-- Блок ширины -->
+        <div class="input-field-group">
+          <input class="size-input" type="number" [value]="1920" placeholder="Width"
+                 oninput="if (this.value.length > 4) this.value = this.value.slice(0, 4); if (this.value > 9999) this.value = 9999;">
+          <span class="field-label">Width</span>
+        </div>
+
+        <!-- Разделитель -->
+        <span class="size-separator">×</span>
+
+        <!-- Блок высоты -->
+        <div class="input-field-group">
+          <input class="size-input" type="number" [value]="1080" placeholder="Height"
+                 oninput="if (this.value.length > 4) this.value = this.value.slice(0, 4); if (this.value > 9999) this.value = 9999;">
+          <span class="field-label">Height</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Временно отложим -->
+    <!-- Пресеты (список заранее доступных размеров экрана) -->
+    <!--    <div></div>-->
+  </div>
+
+  <!-- Настройки лаунчера при запуске игры -->
+  <h3 class="setting-group-title">Startup Settings</h3>
+  <div class="setting-group">
+
+    <!-- Автозапуск -->
+    <div class="setting-component">
+      <div class="setting-info">
+        <h4 class="setting-title">Run on Startup</h4>
+        <!-- Описание настройки -->
+        <p class="setting-description">Automatically launch the application when you turn on your PC</p>
+      </div>
+      <ui-switch-button></ui-switch-button>
+    </div>
+
+    <!-- Виды работы (открыт, трей, закрыт) -->
+    <div class="vertical-component">
+      <div class="setting-info">
+        <h4 class="setting-title">On Game Launch</h4>
+        <!-- Описание настройки -->
+        <p class="setting-description">Choose what the launcher should do while Minecraft is running to save system
+          resources</p>
+      </div>
+      <eh-form-select
+        [options]="this.items()"
+        [value]="this.items()[0].label"
+      />
+      <!--                      (changed)="deviceStore.setOutputDevice($event.value)"/>-->
+    </div>
+
+
+  </div>
+
+  <!-- Системные настройки -->
+  <h3 class="setting-group-title">System Settings</h3>
+  <div class="setting-group">
+
+  </div>
+  <div>
+    <!-- Режим работы лаунчера (оффлайн, скачивает все файлы / онлайн, собирает всё в онлайне) -->
+    <!-- Системные настройки (основная папка где хранятся инстансы, а так же кнопка чтоб открыть её удобно -->
+  </div>
+
+  <!-- Настройки обновления -->
+  <h3 class="setting-group-title">Update Settings</h3>
+  <div class="setting-group">
+
+  </div>
+  <div>
+
+    <!-- Авто-обновление -->
+    <div></div>
+
+    <!-- Авто-перезапуск -->
+    <div></div>
+
+    <!-- Предварительное скачивание -->
+    <div></div>
+
+    <!-- Бета-версия -->
+    <div></div>
+
+    <!-- Версия-лаунчера -->
+    <div></div>
+
+  </div>
+</div>
